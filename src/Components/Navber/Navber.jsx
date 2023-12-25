@@ -83,7 +83,7 @@ const Navber = () => {
               </li>
             </ul>
           </div>
-          <h1 className='lg:text-4xl lg:font-semibold lg:mb-2  text-cyan-500'>Task Manager</h1>
+          <h1 className='lg:text-4xl lg:font-semibold lg:mb-2 text-lg mt-2 text-cyan-500'>Task Management</h1>
         </div>
         <div className="navbar-center hidden lg:flex">
           <ul className="menu menu-horizontal px-1">

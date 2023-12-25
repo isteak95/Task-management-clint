@@ -63,7 +63,7 @@ const Dashboard = () => {
                             <h1 className="text-3xl font-bold text-white "></h1>
 
                             <li className="mt-5 lg:text-xl md:text-base font-medium text-white">
-                                <NavLink to="/dashboard/taskmanagement">
+                                <NavLink to="/dashboard">
                                     <MdOutlineHomeRepairService />
                                     Task Management
                                 </NavLink>

@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useDrag, useDrop } from 'react-dnd';
 import axios from 'axios';
+import { AuthContext } from '../../AuthProvider/AuthProvider';
 
 const ItemType = 'TASK';
 
@@ -45,19 +46,23 @@ const List = ({ title, tasks, status, moveTask }) => {
     >
       <h3 className="text-2xl text-white bg-teal-500 p-2 text-center m-4  font-bold mb-4">{title}</h3>
       {tasks.map((task) => (
-        <Task key={task.id} {...task} moveTask={moveTask} />
+        <Task key={task._id} {...task} moveTask={moveTask} />
       ))}
     </div>
   );
 };
 
+
 const TaskManagement = () => {
+  const { user } = useContext(AuthContext);
+  const email = user?.email;
+
   const [tasks, setTasks] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get('http://localhost:5000/task');
+        const response = await axios.get(`http://localhost:5000/task?email=${email}`);
         if (response.status === 200) {
           setTasks(response.data);
         } else {
@@ -67,33 +72,38 @@ const TaskManagement = () => {
         console.error('Error:', error.message);
       }
     };
-
+  
     fetchData();
-  }, []); // Empty dependency array ensures the effect runs only once on mount
+  }, [email]); // Fetch tasks whenever the user changes
+  
+  const userTasks = tasks.filter(task => task.email === email);
+
 
   const moveTask = (taskId, newStatus) => {
     const updatedTasks = tasks.map((task) =>
-      task.id === taskId ? { ...task, status: newStatus } : task
+      task._id === taskId ? { ...task, status: newStatus } : task
     );
     setTasks(updatedTasks);
   };
 
   return (
-    <div className="flex flex-col md:flex-row mx-10 ">
-      <List title="To-Do" tasks={tasks} status="to-do" moveTask={moveTask} />
-      <List
-        title="Ongoing"
-        tasks={tasks.filter((task) => task.status === 'ongoing')}
-        status="ongoing"
-        moveTask={moveTask}
-      />
-      <List
-        title="Completed"
-        tasks={tasks.filter((task) => task.status === 'completed')}
-        status="completed"
-        moveTask={moveTask}
-      />
-    </div>
+// Inside the return statement of TaskManagement component
+<div className="flex flex-col md:flex-row mx-10 ">
+  <List title="To-Do" tasks={userTasks} status="to-do" moveTask={moveTask} />
+  <List
+    title="Ongoing"
+    tasks={userTasks.filter((task) => task.status === 'ongoing')}
+    status="ongoing"
+    moveTask={moveTask}
+  />
+  <List
+    title="Completed"
+    tasks={userTasks.filter((task) => task.status === 'completed')}
+    status="completed"
+    moveTask={moveTask}
+  />
+</div>
+
   );
 };
 

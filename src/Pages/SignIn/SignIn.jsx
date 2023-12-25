@@ -19,6 +19,8 @@ const SignIn = () => {
     signInWithPopup(auth, provider)
       .then((result) => {
         console.log(result.user);
+        navigate('/'); // Redirect to the home page
+
         toast.success("Sign in with Google successful!");
         clearFormFields();
       })

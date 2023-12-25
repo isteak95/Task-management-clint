@@ -1,33 +1,24 @@
-// Import React and other necessary modules
 import React from 'react';
 import { NavLink } from 'react-router-dom';
+import PrivateRoute from '../../PrivateRoute/PrivateRoute';
 
-// Create the Banner component
 const Banner = () => {
 
-  // Define the function to handle the Explore button click
-  const handleExploreClick = () => {
-    // Specify the URL you want to redirect to
-    const exploreUrl = '/explore'; // Change this to your desired URL
-    history.push(exploreUrl);
-  };
 
-  // Return the JSX for the Banner component
-  return (
-    <div className="banner-container">
-      {/* Customize the banner content */}
-      <div className="banner-content">
-        <h1>Welcome to Our Website</h1>
-        <p>Discover amazing content and more...</p>
-       <NavLink to='/signin'>  <button className="explore-button" onClick={handleExploreClick}>
-          Let’s Explore
-        </button></NavLink>
-      </div>
-      {/* Add styles for the banner */}
-      <style jsx>{`
+
+    return (
+        <div className="banner-container">
+            <div className="banner-content mb-96">
+                  <NavLink to='/dashboard'>
+                    <button className="explore-button" >
+                        Let’s Explore
+                    </button>
+                </NavLink>
+            </div>
+            <style jsx>{`
         .banner-container {
-          background: url('/your-new-banner-image.jpg') center/cover;
-          height: 400px; /* Adjust the height as needed */
+          background: url('https://i.ibb.co/HxdLQbT/depositphotos-170541490-stock-illustration-task-management-multitask-time-management.jpg') center/cover;
+          height: 1000px; /* Adjust the height as needed */
           display: flex;
           align-items: center;
           justify-content: center;
@@ -37,6 +28,7 @@ const Banner = () => {
 
         .banner-content {
           max-width: 600px;
+          
           padding: 20px;
           background: rgba(0, 0, 0, 0.6); /* Adjust the background overlay */
           border-radius: 8px;
@@ -66,8 +58,8 @@ const Banner = () => {
           background-color: #45a049; /* Customize button hover color */
         }
       `}</style>
-    </div>
-  );
+        </div>
+    );
 };
 
 // Export the Banner component as the default export

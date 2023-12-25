@@ -11,6 +11,8 @@ import AllTask from "../Pages/AllTask/AllTask";
 import AboutUs from "../Pages/AboutUs/AboutUs";
 import ContactUs from "../Pages/ContactUs/ContactUs";
 import Home from "../Pages/Home/Home";
+import PrivateRoute from "../PrivateRoute/PrivateRoute";
+import PreviousTask from "../Pages/PreviousTask/PreviousTask";
 
 
 const router = createBrowserRouter([
@@ -39,7 +41,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/contactus",
-        element: <ContactUs></ContactUs>
+        element:<PrivateRoute><ContactUs></ContactUs></PrivateRoute>
 
       }
     ]
@@ -48,10 +50,10 @@ const router = createBrowserRouter([
   {
 
     path: "/dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
-        path: "/dashboard/taskmanagement",
+        path: "/dashboard",
         element: <TaskManagement></TaskManagement>
       },
       {
@@ -61,6 +63,10 @@ const router = createBrowserRouter([
       {
         path: "/dashboard/alltask",
         element: <AllTask></AllTask>
+      },
+      {
+        path: "/dashboard/previoustask",
+        element: <PreviousTask></PreviousTask>
       },
 
 
